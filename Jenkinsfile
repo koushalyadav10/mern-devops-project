@@ -3,13 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/koushalyadav10/mern-devops-project.git'
-            }
-        }
-
         stage('Build Docker Containers') {
             steps {
                 sh 'docker build -t mern-devops-project .'
