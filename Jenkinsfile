@@ -5,27 +5,21 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/koushalyadav10/mern-devops-project.git'
+                git branch: 'main',
+                url: 'https://github.com/koushalyadav10/mern-devops-project.git'
             }
         }
 
-        stage('Build Docker Containers') {
+        stage('Build Docker Image') {
             steps {
-                sh 'docker compose build'
+                sh 'docker build -t mern-devops-project .'
             }
         }
 
-        stage('Run Containers') {
+        stage('Run Container') {
             steps {
-                sh 'docker compose up -d'
+                sh 'docker run -d -p 3000:3000 --name mern-container mern-devops-project'
             }
         }
-
-        stage('Check Running Containers') {
-            steps {
-                sh 'docker ps'
-            }
-        }
-
     }
 }
