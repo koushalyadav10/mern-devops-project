@@ -14,7 +14,7 @@ pipeline {
                 sh 'docker rm -f mern-container || true'
 
                 sh '''
-                docker run -d -p 5000:5000 \
+                docker run -d -p 5001:5000 \
                 -e PORT=5000 \
                 -e MONGO_URI=mongodb://host.docker.internal:27017/ecommerce \
                 -e UPSTASH_REDIS_URL=dummy \
