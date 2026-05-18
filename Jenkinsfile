@@ -3,15 +3,22 @@ pipeline {
 
     stages {
 
-        stage('Build Docker Containers') {
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/koushalyadav10/mern-devops-project.git'
+            }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build -t mern-devops-project .'
             }
         }
 
-        stage('Run Containers') {
+        stage('Run Container') {
             steps {
-                sh 'docker run -d -p 3000:3000 --name mern-container mern-devops-project'
+                sh 'docker rm -f mern-container || true'
+                sh 'docker run -d -p 5000:5000 --env-file backend/.env --name mern-container mern-devops-project'
             }
         }
 
