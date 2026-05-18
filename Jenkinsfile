@@ -14,10 +14,12 @@ pipeline {
                 sh 'docker rm -f mern-container || true'
 
                 sh '''
-                docker run -d -p 5001:5000 \
+                docker run -d \
+                -p 5001:5000 \
+                --network bridge \
                 -e PORT=5000 \
-                -e MONGO_URI=mongodb://host.docker.internal:27017/ecommerce \
-                -e UPSTASH_REDIS_URL=dummy \
+                -e MONGO_URI=mongodb://172.17.0.1:27017/ecommerce \
+                -e UPSTASH_REDIS_URL=redis://172.17.0.1:6379 \
                 -e ACCESS_TOKEN_SECRET=myaccesssecret \
                 -e REFRESH_TOKEN_SECRET=myrefreshsecret \
                 -e CLOUDINARY_CLOUD_NAME=test \
