@@ -5,7 +5,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'eval $(minikube docker-env) && docker build -t mern-devops-project .'
+                sh 'docker build -t mern-devops-project .'
             }
         }
 
