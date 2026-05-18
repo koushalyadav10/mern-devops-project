@@ -2,12 +2,17 @@ FROM node:18
 
 WORKDIR /app
 
-COPY . .
-
+COPY package*.json ./
 RUN npm install
-RUN cd frontend && npm install
-RUN cd backend && npm install
+
+COPY frontend/package*.json ./frontend/
+WORKDIR /app/frontend
+RUN npm install
+
+WORKDIR /app
+
+COPY . .
 
 EXPOSE 5000
 
-CMD ["npm","run","start"]
+CMD ["npm", "start"]
